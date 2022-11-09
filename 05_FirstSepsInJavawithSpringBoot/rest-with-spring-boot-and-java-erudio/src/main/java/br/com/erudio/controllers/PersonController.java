@@ -33,14 +33,12 @@ public class PersonController {
 
 	@GetMapping(value = "/{id}", 
 			produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-	@Operation(summary = "Finds all People", description = "Finds all People", 
+	@Operation(summary = "Finds a Person", description = "Finds a Person", 
 			tags = {"People"}, 
 			responses = {
 				@ApiResponse(description = "Success", responseCode = "200", 
 					content = {
-						@Content(
-								mediaType = "application/json",
-								array = @ArraySchema(schema = @Schema(implementation = PersonVO.class)))
+						@Content(schema = @Schema(implementation = PersonVO.class))
 					}),
 				@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
 				@ApiResponse(description = "Unathourized", responseCode = "401", content = @Content),
@@ -53,12 +51,14 @@ public class PersonController {
 	
 	@GetMapping(
 			produces = {MediaType.APPLICATION_JSON,	MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-	@Operation(summary = "Finds a Person", description = "Finds a Person", 
+	@Operation(summary = "Finds all People", description = "Finds all People", 
 	tags = {"People"}, 
 	responses = {
 		@ApiResponse(description = "Success", responseCode = "200", 
 			content = 
-				@Content(schema = @Schema(implementation = PersonVO.class))
+				@Content(
+						mediaType = "application/json",
+						array = @ArraySchema(schema = @Schema(implementation = PersonVO.class)))
 			),
 		@ApiResponse(description = "No Content", responseCode = "204", content = @Content),
 		@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
