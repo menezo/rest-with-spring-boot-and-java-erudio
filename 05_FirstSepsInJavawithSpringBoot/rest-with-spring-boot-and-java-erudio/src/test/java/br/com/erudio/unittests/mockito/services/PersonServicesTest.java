@@ -19,7 +19,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import br.com.erudio.data.vo.v1.PersonVO;
+import br.com.erudio.data.vo.PersonVO;
 import br.com.erudio.exceptions.RequiredObjectIsNullException;
 import br.com.erudio.model.Person;
 import br.com.erudio.repositories.PersonRepository;

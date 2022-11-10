@@ -16,7 +16,7 @@ public class OpenApiConfig {
 				.info(new Info()
 						.title("RESTful API with Java 19 and Spring Boot 3")
 						.version("v1")
-						.description("aaa")
+						.description("RESTful API with Java 19 and Spring Boot 3")
 						.termsOfService("https://pub.erudio.com.br/meus-cursos")
 						.license(
 								new License()

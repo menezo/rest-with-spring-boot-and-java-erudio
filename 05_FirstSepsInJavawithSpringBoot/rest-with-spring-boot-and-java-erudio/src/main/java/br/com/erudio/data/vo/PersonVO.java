@@ -1,4 +1,4 @@
-package br.com.erudio.data.vo.v1;
+package br.com.erudio.data.vo;
 
 import java.io.Serializable;
 
