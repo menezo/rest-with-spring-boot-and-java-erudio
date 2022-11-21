@@ -1,4 +1,4 @@
-package br.com.erudio.integrationtests.controller.withjson;
+package br.com.erudio.integrationtests.swagger;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
