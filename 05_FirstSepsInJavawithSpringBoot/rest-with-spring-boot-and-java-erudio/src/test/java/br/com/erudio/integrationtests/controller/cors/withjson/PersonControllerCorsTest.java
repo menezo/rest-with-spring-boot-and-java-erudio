@@ -193,5 +193,6 @@ public class PersonControllerCorsTest extends AbstractIntegrationTest{
 		person.setLastName("Stallman");
 		person.setAddress("New York City, New York, Us");
 		person.setGender("Male");
+		person.setEnabled(true);
 	}
 }
