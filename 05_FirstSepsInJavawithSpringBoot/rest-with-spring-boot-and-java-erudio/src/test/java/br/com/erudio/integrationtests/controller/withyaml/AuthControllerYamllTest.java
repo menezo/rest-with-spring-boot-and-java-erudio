@@ -69,8 +69,6 @@ public class AuthControllerYamllTest extends AbstractIntegrationTest{
 	@Order(2)
 	public void testRefresh() throws JsonMappingException, JsonProcessingException {
 		
-		AccountCredentialsVO user = new AccountCredentialsVO("menezes", "admin123");
-		
 		var newTokenVO = given()
 				.config(
 						RestAssuredConfig
