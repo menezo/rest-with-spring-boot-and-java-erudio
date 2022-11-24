@@ -225,6 +225,79 @@ public class BookControllerYamlTest extends AbstractIntegrationTest{
 	
 	@Test
 	@Order(5)
+	public void testFindBookByTitle() throws JsonMappingException, JsonProcessingException {
+		
+		var wrapper = given().spec(specification)
+			.config(
+				RestAssuredConfig
+					.config()
+					.encoderConfig(EncoderConfig.encoderConfig()
+						.encodeContentTypeAs(
+							TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
+			.contentType(TestConfigs.CONTENT_TYPE_YML)
+			.accept(TestConfigs.CONTENT_TYPE_YML)
+			.pathParam("title", "java")
+			.queryParams("page", 0, "size", 10, "direction", "asc")
+				.when()
+				.get("findBookByTitle/{title}")
+			.then()
+				.statusCode(200)
+			.extract()
+				.body()
+					.as(PagedModelBook.class, objectMapper);
+		
+		List<BookVO> books = wrapper.getContent();
+		
+		BookVO foundBookOne = books.get(0);
+		
+		assertNotNull(foundBookOne.getId());
+		assertNotNull(foundBookOne.getAuthor());
+		assertNotNull(foundBookOne.getLaunchDate());
+		assertNotNull(foundBookOne.getPrice());
+		assertNotNull(foundBookOne.getTitle());
+		
+		assertEquals(9, foundBookOne.getId());
+		
+		assertEquals("Brian Goetz e Tim Peierls", foundBookOne.getAuthor());
+		assertEquals(80.0, foundBookOne.getPrice());
+		assertEquals("Java Concurrency in Practice", foundBookOne.getTitle());
+		
+		BookVO foundBookTwo = books.get(1);
+		
+		assertNotNull(foundBookTwo.getId());
+		assertNotNull(foundBookTwo.getAuthor());
+		assertNotNull(foundBookTwo.getPrice());
+		assertNotNull(foundBookTwo.getTitle());
+		
+		assertEquals(4, foundBookTwo.getId());
+		
+		assertEquals("Crockford", foundBookTwo.getAuthor());
+		assertEquals(67.0, foundBookTwo.getPrice());
+		assertEquals("JavaScript", foundBookTwo.getTitle());
+	}
+	
+	@Test
+	@Order(6)
+	public void testFindAllWithoutToken() throws JsonMappingException, JsonProcessingException {
+		
+		RequestSpecification specificationWithoutToken = new RequestSpecBuilder()
+			.setBasePath("/api/book/v1")
+			.setPort(TestConfigs.SERVER_PORT)
+				.addFilter(new RequestLoggingFilter(LogDetail.ALL))
+				.addFilter(new ResponseLoggingFilter(LogDetail.ALL))
+			.build();
+		
+		given().spec(specificationWithoutToken)
+			.contentType(TestConfigs.CONTENT_TYPE_YML)
+			.accept(TestConfigs.CONTENT_TYPE_YML)
+				.when()
+				.get()
+			.then()
+				.statusCode(403);
+	}
+	
+	@Test
+	@Order(7)
 	public void testFindAll() throws JsonMappingException, JsonProcessingException {
 		
 		var wrapper = given().spec(specification)
@@ -276,27 +349,7 @@ public class BookControllerYamlTest extends AbstractIntegrationTest{
 	}
 	
 	@Test
-	@Order(6)
-	public void testFindAllWithoutToken() throws JsonMappingException, JsonProcessingException {
-		
-		RequestSpecification specificationWithoutToken = new RequestSpecBuilder()
-			.setBasePath("/api/book/v1")
-			.setPort(TestConfigs.SERVER_PORT)
-				.addFilter(new RequestLoggingFilter(LogDetail.ALL))
-				.addFilter(new ResponseLoggingFilter(LogDetail.ALL))
-			.build();
-		
-		given().spec(specificationWithoutToken)
-			.contentType(TestConfigs.CONTENT_TYPE_YML)
-			.accept(TestConfigs.CONTENT_TYPE_YML)
-				.when()
-				.get()
-			.then()
-				.statusCode(403);
-	}
-	
-	@Test
-	@Order(7)
+	@Order(8)
 	public void testHATEOAS() throws JsonMappingException, JsonProcessingException {
 		
 		var content = given().spec(specification)

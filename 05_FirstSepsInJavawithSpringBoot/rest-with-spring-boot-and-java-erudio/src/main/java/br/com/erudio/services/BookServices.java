@@ -20,6 +20,7 @@ import br.com.erudio.exceptions.ResourceNotFoundException;
 import br.com.erudio.mapper.DozerMapper;
 import br.com.erudio.model.Book;
 import br.com.erudio.repositories.BookRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class BookServices {
@@ -64,6 +65,29 @@ public class BookServices {
 				.findAll(pageable.getPageNumber(), 
 					pageable.getPageSize(), 
 					"asc")).withSelfRel();
+		
+		return assembler.toModel(bookVosPage, link);
+	}
+	
+	@Transactional
+	public PagedModel<EntityModel<BookVO>> findBookByTitle(String title, Pageable pageable){
+		
+		logger.info("Finding all books with passed title!");
+		
+		var bookPage = repository.findBookByTitle(title, pageable);
+		
+		var bookVosPage = bookPage.map(b -> DozerMapper.parseObject(b, BookVO.class));
+		
+		bookVosPage.map(
+				b -> b.add(
+						linkTo(methodOn(BookController.class)
+								.findById(b.getKey())).withSelfRel()));
+		
+		Link link = linkTo(
+				methodOn(BookController.class)
+				.findAll(pageable.getPageNumber(), 
+						pageable.getPageSize(), 
+						"asc")).withSelfRel();
 		
 		return assembler.toModel(bookVosPage, link);
 	}
