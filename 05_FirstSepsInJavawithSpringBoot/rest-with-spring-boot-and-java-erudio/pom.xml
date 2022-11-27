@@ -15,8 +15,8 @@
 	<properties>
 		<java.version>19</java.version>
 		<dozer.version>6.4.0</dozer.version>
-		<springdoc.version>2.0.0-M4</springdoc.version>
-		<testcontainers.version>1.16.3</testcontainers.version>
+		<springdoc.version>2.0.0</springdoc.version>
+		<testcontainers.version>1.17.3</testcontainers.version>
 		<rest-assured.version>4.5.0</rest-assured.version>
 		<java-jwt.version>3.18.3</java-jwt.version>
 	</properties>

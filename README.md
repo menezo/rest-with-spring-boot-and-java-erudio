@@ -1,1 +1,2 @@
 # rest-with-spring-boot-and-java-erudio
+[![Docker Hub Repo](https://img.shields.io/docker/pulls/menezo/rest-with-spring-boot-erudio.svg)](https://hub.docker.com/repository/docker/menezo/rest-with-spring-boot-erudio)
