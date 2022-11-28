@@ -45,7 +45,7 @@ jobs:
       run: docker compose build
       
     - name: Tag and push image to Amazon ECR
-      run:
+      run: |
         docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.IMAGE_REPO_URL }}:${{ github.run_id }}
         docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.IMAGE_REPO_URL }}:latest
         
